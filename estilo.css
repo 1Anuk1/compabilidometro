@@ -1,17 +1,39 @@
+body {
+    background-image: url('fondo.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* Consistencia de tamaños (evita desbordes por padding/border) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .contenedor {
     display: flex;
     align-items: stretch;
-    gap: 20px;
-    width: 100%;
+    gap: 2vw;
+    width: auto;
     justify-content: center;
+    margin: 5vh 5vw;   /* 5% del alto arriba/abajo y 5% del ancho a los lados */
 }
 section {
     flex: 1;
 }
 #formulario1 {
-    background-color: #f0f0f0;
+    /* Estilo tipo “Glass” (similar a tu ejemplo) */
+    color: #fff;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,9 +43,15 @@ section {
     text-align: left;
 }
 #formulario2 {
-    background-color: #f0f0f0;
+    /* Estilo tipo “Glass” (similar a tu ejemplo) */
+    color: #fff;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,21 +61,68 @@ section {
     text-align: left;
 }
 
+/* Inputs y selects estilo “Glass” */
+#formulario1 label,
+#formulario2 label {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+#formulario1 input,
+#formulario2 input,
+#formulario1 select,
+#formulario2 select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  outline: none;
+}
+
+#formulario1 input::placeholder,
+#formulario2 input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#formulario1 input:focus,
+#formulario2 input:focus,
+#formulario1 select:focus,
+#formulario2 select:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+/* Nota: los estilos de <option> dependen del navegador/SO, esto mejora legibilidad */
+#formulario1 select option,
+#formulario2 select option {
+  color: #111;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.boton-centro {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 60px;
+}
+
 #boton {
   background-color: red;
   color: white;
   border-radius: 8px;
-  width: 20vw;
-  height: 8vh;
-  padding: 10px 20px;
+  width: 200px;      /* Tamaño estático */
+  height: 50px;      /* Tamaño estático */
+  padding: 0;
   border: none;
   font-size: 16px;
   cursor: pointer;
-  margin: 1% auto ;
   text-align: center;
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  align-items: center;
+  margin: 0;
 }
 
 .modal {
