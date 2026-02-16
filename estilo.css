@@ -4,9 +4,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    font-family: 'verdana', sans-serif;
 }
 
-/* Consistencia de tamaños (evita desbordes por padding/border) */
 *,
 *::before,
 *::after {
@@ -19,13 +19,12 @@ body {
     gap: 2vw;
     width: auto;
     justify-content: center;
-    margin: 5vh 5vw;   /* 5% del alto arriba/abajo y 5% del ancho a los lados */
+    margin: 5vh 5vw;   
 }
 section {
     flex: 1;
 }
 #formulario1 {
-    /* Estilo tipo “Glass” (similar a tu ejemplo) */
     color: #fff;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -43,7 +42,6 @@ section {
     text-align: left;
 }
 #formulario2 {
-    /* Estilo tipo “Glass” (similar a tu ejemplo) */
     color: #fff;
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -61,7 +59,6 @@ section {
     text-align: left;
 }
 
-/* Inputs y selects estilo “Glass” */
 #formulario1 label,
 #formulario2 label {
   width: 100%;
@@ -94,7 +91,6 @@ section {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
-/* Nota: los estilos de <option> dependen del navegador/SO, esto mejora legibilidad */
 #formulario1 select option,
 #formulario2 select option {
   color: #111;
@@ -112,8 +108,8 @@ section {
   background-color: red;
   color: white;
   border-radius: 8px;
-  width: 200px;      /* Tamaño estático */
-  height: 50px;      /* Tamaño estático */
+  width: 200px;      
+  height: 50px;      
   padding: 0;
   border: none;
   font-size: 16px;
@@ -166,5 +162,19 @@ section {
   position: relative;
   z-index: 1;
   padding: 40px 20px 20px 20px;
+}
+#titulo {
+    text-align: center;
+    color: white;
+    font-size: 3em;
+    margin-top: 20px;
+    font-family: 'verdana', sans-serif;
+}
+
+#descripcion {
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    margin-top: 10px;
 }
 

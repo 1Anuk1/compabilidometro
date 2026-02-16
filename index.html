@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Compatibilidometro</title>
     <link rel="stylesheet" href="estilo.css">
+    <link rel="icon" type="image/x-icon" href="lovemeter.png">
 </head>
 <body>
+    <h1 id = "titulo">💓Compatibilidometro💓</h1>
+         <h3 id= "descripcion">Descubre cuán compatible eres con esa persona especial😍 </h3>
     <div class="contenedor">
+        
         <section id="persona 1" style="text-align: left;">
             <form id="formulario1">
+                <h2>Persona 1</h2>
                 <label for="Nombre1">Nombre:</label>
                 <input type="text" id="Nombre1" name="Nombre1" required>
                 
                 <label for="Edad1">Edad:</label>
                 <input type="number" id="Edad1" name="Edad1" required>
-                
+
+                <label for="foto1">Foto: (opcional)</label>
+                <input type="file" id="foto1" name="foto1" accept="image/*">
+
                 <label for="frio/calor1">Prefieres el frio o el calor</label>
                 <select name="frio/calor1" id="frio/calor1">
                     <option disabled selected>Selecciona una opción</option>
@@ -81,11 +89,16 @@
         </section>
         <section id="persona 2" style="text-align: right;">
             <form id="formulario2">
+                <h2>Persona 2</h2>
+
                 <label for="Nombre2">Nombre:</label>
                 <input type="text" id="Nombre2" name="Nombre2" required>
                 
                 <label for="Edad2">Edad:</label>
                 <input type="number" id="Edad2" name="Edad2" required>
+
+                <label for="foto2">Foto: (opcional)</label>
+                <input type="file" id="foto2" name="foto2" accept="image/*">
 
                 <label for="frio/calor2">Prefieres el frio o el calor</label>
                 <select name="frio/calor2" id="frio/calor2">
@@ -114,7 +127,7 @@
                     <option value="apple">Apple</option>
                     <option value="android">Android</option>
                 </select>
-                
+
                 <label for="tipopeli2">Tipo de pelicula preferida</label>
                 <select name="tipopeli2" id="tipopeli2">
                     <option disabled selected>Selecciona una opción</option>
@@ -152,7 +165,7 @@
     </div>
 
     <div class="boton-centro">
-      <button id="boton">Comparar</button>
+      <button id="boton">Calcular</button>
     </div>
 
     <div id="resultado"></div>
@@ -163,7 +176,7 @@
       </div>
     <div id="modal" class="modal">
   <div class="modal-contenido" id="modal-contenido">
-    <span class="cerrar" id="cerrar-modal">&times;</span>
+    <span class="cerrar" id="cerrar-modal" style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;font-size:2.5em;cursor:pointer;position:absolute;top:10px;right:10px;z-index:10;">&times;</span>
     <div class="corazon-contenedor">
       <div class="corazon" id="corazon">
         <div id="contador"></div>
@@ -177,6 +190,8 @@
     <script>
         const formulario1 = document.getElementById('formulario1');
         const formulario2 = document.getElementById('formulario2');
+        const Nombre1 = document.getElementById('Nombre1');
+        const Nombre2 = document.getElementById('Nombre2');
         const Edad1 = document.getElementById('Edad1');
         const Edad2 = document.getElementById('Edad2');
         const friocalor1 = document.getElementById('frio/calor1');
@@ -195,6 +210,8 @@
         const casarse_relacionarse2 = document.getElementById('casarse/relacionarse2');
         const pasatiempo1 = document.getElementById('pasatiempo1');
         const pasatiempo2 = document.getElementById('pasatiempo2');
+        const foto1 = document.getElementById('foto1');
+        const foto2 = document.getElementById('foto2');
         const boton = document.getElementById('boton');
         const divResultado = document.getElementById('resultado');
         const audio = document.getElementById('audioResultado');
@@ -205,138 +222,212 @@
 
         boton.addEventListener('click', (e) => {
             e.preventDefault();
-         
+
+            const campos = [
+                Nombre1, Edad1, friocalor1, dulcesalado1, salircasa1, appleandroid1, tipopeli1, CMM1, casarse_relacionarse1, pasatiempo1,
+                Nombre2, Edad2, friocalor2, dulcesalado2, salircasa2, appleandroid2, tipopeli2, CMM2, casarse_relacionarse2, pasatiempo2
+            ];
+            let camposVacios = campos.some(campo => campo.value === "" || campo.value === undefined || campo.value === null || campo.value === "Selecciona una opción");
+            if (camposVacios) {
+                alert("Por favor, rellena todos los campos antes de calcular la compatibilidad.");
+                return;
+            }
 
             let resultado = 0;
-    //-------------------comparacion de edades-------------------
-        if (Edad1.value - Edad2.value <= 3) {
-            resultado += 20 ;
-        }
-        else if (Edad1.value - Edad2.value <= 6) {
-            resultado += 15 ;
-        }
-        else if (Edad1.value - Edad2.value <= 10) {
-            resultado += 5 ;
-        }
+            const nombrePersona1 = Nombre1.value;
+            const nombrePersona2 = Nombre2.value;
 
-    //-------------------comparacion de frio/calor-------------------
-        if (friocalor1.value === friocalor2.value) {
-            resultado += 10 ;
-        }
-        else {
-            resultado += 2 ;
-        }
+            // ----------- Comparación de edades -----------
+            const edad1 = parseInt(Edad1.value);
+            const edad2 = parseInt(Edad2.value);
+            const difEdad = Math.abs(edad1 - edad2);
+            if (difEdad <= 3) {
+                resultado += 20;
+            } else if (difEdad <= 6) {
+                resultado += 15;
+            } else if (difEdad > 10) {
+                resultado += 5;
+            }
 
-    //-------------------comparacion de dulce/salado-------------------
-        if (dulcesalado1.value === dulcesalado2.value) {
-            resultado += 5 ;
-        }
-        else {
-            resultado += 1 ;
-        }
+            // ----------- Team frío o calor -----------
+            if (friocalor1.value === friocalor2.value) {
+                resultado += 10;
+            } else {
+                resultado += 2;
+            }
 
-    //-------------------comparacion de salir/casa-------------------
-        if (salircasa1.value === salircasa2.value) {
-            resultado += 10 ;
-        }
-        else {
-            resultado += 4 ;
-        }
+            // ----------- Dulce o salado -----------
+            if (dulcesalado1.value === dulcesalado2.value) {
+                resultado += 5;
+            } else {
+                resultado += 1;
+            }
 
-    //-------------------comparacion de apple/android-------------------
-        if (appleandroid1.value === appleandroid2.value) {
-            resultado += 5 ;
-        }
-        else {
-            resultado += 3 ;
-        }
+            // ----------- Salir o estar en casa -----------
+            if (salircasa1.value === salircasa2.value) {
+                resultado += 10;
+            } else {
+                resultado += 4;
+            }
 
-    //-------------------comparacion de tipo de pelicula-------------------
-        if (tipopeli1.value === tipopeli2.value) {
-            resultado += 5 ;
-        }
-        else {
-            resultado += 2 ;
-        }
+            // ----------- Apple o Android -----------
+            if (appleandroid1.value === appleandroid2.value) {
+                resultado += 5;
+            } else {
+                resultado += 3;
+            }
 
-    //-------------------comparacion de ciudad/mar/montaña-------------------
-        if (CMM1.value === CMM2.value) {
-            resultado += 5 ;
-        }
-        else {
-            resultado += 2 ;
-        }   
+            // ----------- Tipo de peli favorito -----------
+            if (tipopeli1.value === tipopeli2.value) {
+                resultado += 5;
+            } else {
+                resultado += 2;
+            }
+
+            // ----------- Ciudad, mar o montaña -----------
+            if (CMM1.value === CMM2.value) {
+                resultado += 10;
+            } else {
+                // Variaciones
+                const cmmSet = new Set([CMM1.value, CMM2.value]);
+                if (cmmSet.has('ciudad') && cmmSet.has('montaña')) {
+                    resultado += 3;
+                } else if (cmmSet.has('ciudad') && cmmSet.has('mar')) {
+                    resultado += 6;
+                } else if (cmmSet.has('montaña') && cmmSet.has('mar')) {
+                    resultado += 8;
+                }
+            }
+
+            // ----------- Casarse o relación libre -----------
+            if (casarse_relacionarse1.value === casarse_relacionarse2.value) {
+                resultado += 20;
+            } else {
+                resultado -= 20;
+            }
+
+            // ----------- Pasatiempo -----------
+            if (pasatiempo1.value === pasatiempo2.value) {
+                resultado += 15;
+            } else {
+                const pasatiempos = [pasatiempo1.value, pasatiempo2.value];
+                if (pasatiempos.includes('leer') && pasatiempos.includes('musica')) {
+                    resultado += 8;
+                } else if (pasatiempos.includes('videojuegos') && pasatiempos.includes('series')) {
+                    resultado += 10;
+                } else if (pasatiempos.includes('musica') && pasatiempos.includes('series')) {
+                    resultado += 8;
+                } else {
+                    resultado += 5;
+                }
+            }
+
+            divResultado.innerText = "";
+
+            //------------------------------Mostrar resultado-----------------------
+            modalResultado.style.display = "none";
+            contadorDiv.style.display = "block";
+            modal.style.display = "block";
+
+            // --- Contador animado ---
+            let repeticiones = 80;
+            let contador = 0;
+            let intervalo = setInterval(() => {
+                let numeroRandom = Math.floor(Math.random() * 100) + 1;
+                contadorDiv.innerHTML = `<span>Calculando resultado<br><b>${numeroRandom}%</b></span>`;
+                contador++;
+                if (contador >= repeticiones) {
+                    clearInterval(intervalo);
+                    contadorDiv.textContent = "";
+                    modalResultado.style.display = "block";
+
+        
+                    let foto1URL = null;
+                    let foto2URL = null;
+                    if (foto1.files && foto1.files[0]) {
+                        foto1URL = URL.createObjectURL(foto1.files[0]);
+                    }
+                    if (foto2.files && foto2.files[0]) {
+                        foto2URL = URL.createObjectURL(foto2.files[0]);
+                    }
+
+                    let resultadoHTML = "";
+                    if (foto1URL && foto2URL) {
+                        resultadoHTML += `<div style='display:flex;justify-content:center;gap:10px;'>`;
+                        resultadoHTML += `<img src='${foto1URL}' alt='Foto 1' style='width:80px;height:80px;border-radius:50%;object-fit:cover;'>`;
+                        resultadoHTML += `<span style='font-size:2em;'>+</span>`;
+                        resultadoHTML += `<img src='${foto2URL}' alt='Foto 2' style='width:80px;height:80px;border-radius:50%;object-fit:cover;'>`;
+                        resultadoHTML += `</div>`;
+                    } else if (foto1URL && !foto2URL) {
+                        resultadoHTML += `<div style='display:flex;justify-content:center;gap:10px;'>`;
+                        resultadoHTML += `<img src='${foto1URL}' alt='Foto 1' style='width:80px;height:80px;border-radius:50%;object-fit:cover;'>`;
+                        resultadoHTML += `<span style='font-size:2em;'>+</span>`;
+                        resultadoHTML += `<span style='font-size:1.2em;'>${nombrePersona2}</span>`;
+                        resultadoHTML += `</div>`;
+                    } else if (!foto1URL && foto2URL) {
+                        resultadoHTML += `<div style='display:flex;justify-content:center;gap:10px;'>`;
+                        resultadoHTML += `<span style='font-size:1.2em;'>${nombrePersona1}</span>`;
+                        resultadoHTML += `<span style='font-size:2em;'>+</span>`;
+                        resultadoHTML += `<img src='${foto2URL}' alt='Foto 2' style='width:80px;height:80px;border-radius:50%;object-fit:cover;'>`;
+                        resultadoHTML += `</div>`;
+                    } else {
+                        resultadoHTML += `<h2>${nombrePersona1} + ${nombrePersona2}</h2>`;
+                    }
+                    resultadoHTML += `<h3>El resultado del calculo es de: ${resultado}% compatibles</h3>`;
+                    // Bloques condicionales para mensaje personalizado
+                    if (resultado >= 90) {
+                        // Mensaje para compatibilidad muy alta
+                        resultadoHTML += `<p>¡Son almas gemelas!</p>`;
+                    } else if (resultado >= 75) {
+                        // Mensaje para compatibilidad alta
+                        resultadoHTML += `<p>Hacen una muy buena pareja!!</p>`;
+                    } else if (resultado >= 50) {
+                        // Mensaje para compatibilidad media
+                        resultadoHTML += `<p>Deberian de conocerse un poco más, intentelo!.</p>`;
+                    } else if (resultado >= 20) {
+                        // Mensaje para compatibilidad baja
+                        resultadoHTML += `<p>Muy baja compatibilidad para ser pareja pero aun pueden ser amigos.</p>`;
+                    } else {
+                        // Mensaje para compatibilidad muy baja
+                         resultadoHTML += `<p>Ustedes son como el agua y el aceite.</p>`;
+                    }
+                    modalResultado.innerHTML = resultadoHTML;
+
+                    //------------------------------Reproducir sonido-----------------------
+                    audio.pause();
+                    audio.currentTime = 0;
+                    if (resultado >= 90 ) {
+                        audio.src = "MarriedLife.mp3";
+                    } else if (resultado >= 75 ) {
+                        audio.src = "Symphony.mp3";
+                    } else if (resultado >= 50 ) {
+                        audio.src = "Lease.mp3";
+                    } else if (resultado >= 20 ) {
+                        audio.src = "diredire.mp3";
+                    } else {
+                        audio.src = "sad.mp3";
+                    }
+                    audio.play();
+                }
+            }, 35);
+
+   
+            cerrarModal.onclick = function() {
+                modal.style.display = "none";
+                audio.pause();
+                audio.currentTime = 0;
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none",
+                    audio.pause();
+                    audio.currentTime = 0;
 
 
-    //-------------------comparacion de casarse/relacionarse-------------------
-        if (casarse_relacionarse1.value === casarse_relacionarse2.value) {
-            resultado += 20 ;
-        }
-        else {
-            resultado -= 20 ;
-        }
-
-
-    //-------------------comparacion de pasatiempo-------------------
-        if (pasatiempo1.value === pasatiempo2.value) {
-            resultado += 10 ;
-        }
-        else {
-            resultado += 2 ;
-        }       
-
-       divResultado.innerText = "";
-
-  
-         //------------------------------Mostrar resultado-----------------------
-       modalResultado.style.display = "none";
-       contadorDiv.style.display = "block";
-       modal.style.display = "block";
-
-       // --- Contador animado ---
-       let repeticiones = 80;
-       let contador = 0;
-       let intervalo = setInterval(() => {
-         let numeroRandom = Math.floor(Math.random() * 100) + 1;
-         contadorDiv.innerHTML = `<span>Calculando resultado<br><b>${numeroRandom}%</b></span>`;
-         contador++;
-         if (contador >= repeticiones) {
-           clearInterval(intervalo);
-           contadorDiv.textContent = "";
-           modalResultado.style.display = "block";
-           modalResultado.innerHTML = `<h2>El resultado de la comparacion es: ${resultado}% de compatibilidad</h2>`;
-
-               //------------------------------Reproducir sonido-----------------------
-           audio.pause();
-           audio.currentTime = 0;
-           if (resultado >= 90 ) {
-             audio.src = "MarriedLife.mp3";
-           } else if (resultado >= 75 ) {
-             audio.src = "Symphony.mp3";
-           } else if (resultado >= 50 ) {
-             audio.src = "Lease.mp3";
-           } else if (resultado >= 20 ) {
-             audio.src = "diredire.mp3";
-           } else {
-             audio.src = "sad.mp3";
-           }
-           audio.play();
-         }
-       }, 35);
-
-
-// Cerrar el modal al hacer clic en la X
-cerrarModal.onclick = function() {
-  modal.style.display = "none";
-}
-
-// Cerrar el modal al hacer clic fuera del contenido
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-});
+                }
+            }
+        });
 
     </script>
 
