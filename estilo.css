@@ -7,6 +7,11 @@ body {
     font-family: 'verdana', sans-serif;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 *,
 *::before,
 *::after {
@@ -76,6 +81,8 @@ section {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
   outline: none;
+  font-size: 16px;
+  line-height: 1.2;
 }
 
 #formulario1 input::placeholder,
@@ -176,5 +183,66 @@ section {
     color: white;
     font-size: 1.5em;
     margin-top: 10px;
+}
+
+/* -------------------- Responsive (móviles) -------------------- */
+@media (max-width: 768px) {
+  #titulo {
+    font-size: 2.2em;
+    margin-top: 16px;
+  }
+
+  #descripcion {
+    font-size: 1.1em;
+    margin: 8px 12px 0 12px;
+  }
+
+  .contenedor {
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 12px;
+  }
+
+  section {
+    text-align: left !important;
+  }
+
+  #formulario1,
+  #formulario2 {
+    padding: 16px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+
+  .boton-centro {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  #boton {
+    width: min(360px, 92vw);
+    height: 56px;
+    font-size: 18px;
+  }
+
+  .modal-contenido {
+    width: 92%;
+    margin: 18% auto;
+    max-width: 420px;
+  }
+
+  #modal-resultado {
+    padding: 32px 14px 18px 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  #titulo {
+    font-size: 2em;
+  }
+
+  #boton {
+    width: 94vw;
+  }
 }
 
